@@ -26,8 +26,18 @@ Route::prefix('test')->group(function () {
 });
 
 Route::get('random/{min}/{max}', function ($min, $max) {
-    $random_number = random_int($min, $max);
-    $data = ['random_number' => $random_number];
+    $data = [];
+    $code = 200;
+    
+    if(is_numeric($min) && is_numeric($max)) {
+        $random_number = random_int($min, $max);
+        $data = ['random_number' => $random_number];
+    }
+    else 
+    {
+        $data = ['error' => 'El tipo de dato ingresado no es el correcto'];
+        $code = 400;
+    }
 
-    return response()->json($data, 200);
+    return response()->json($data, $code);
 });
