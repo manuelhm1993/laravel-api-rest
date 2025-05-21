@@ -25,3 +25,9 @@ Route::prefix('test')->group(function () {
     });
 });
 
+Route::get('random/{min}/{max}', function ($min, $max) {
+    $random_number = random_int($min, $max);
+    $data = ['random_number' => $random_number];
+
+    return response()->json($data, 200);
+});
