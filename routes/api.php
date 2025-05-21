@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -40,4 +41,20 @@ Route::get('random/{min}/{max}', function ($min, $max) {
     }
 
     return response()->json($data, $code);
+});
+
+Route::prefix('users')->name('users.')->group(function () {
+    Route::get('/', function () {
+        $users = User::all();
+        return response()->json(['users' => $users], 200);
+    })->name('all');
+
+    Route::post('/', function (Request $request) {
+        $data = $request->all();
+        $data['password'] = bcrypt($data['password']);
+
+        $user = User::create($data);
+        
+        return response()->json(['new-user' => $user], 200);
+    })->name('store');
 });
