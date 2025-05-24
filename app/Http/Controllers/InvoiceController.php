@@ -5,15 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Invoice;
 use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
+use App\Http\Resources\InvoiceCollection;
+use Illuminate\Http\JsonResponse;
 
 class InvoiceController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse | InvoiceCollection
     {
-        //
+        $invoices = Invoice::orderBy('id', 'DESC')->paginate();
+
+        return new InvoiceCollection($invoices);
     }
 
     /**

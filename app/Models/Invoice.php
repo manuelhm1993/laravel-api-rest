@@ -11,10 +11,10 @@ class Invoice extends Model
     /** @use HasFactory<\Database\Factories\InvoiceFactory> */
     use HasFactory;
 
-    protected array $fillable = [
+    /*protected array $fillable = [
         'customer_id', 'amount', 'status', 
         'billed_dated', 'paid_dated',
-    ];
+    ];*/
 
     public function customer(): BelongsTo
     {
