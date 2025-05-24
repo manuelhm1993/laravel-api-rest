@@ -5,17 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
+use App\Http\Resources\CustomerCollection;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse | CustomerCollection
     {
-        $customers = Customer::orderBy('id', 'DESC')->get();
+        $customers = Customer::orderBy('id', 'DESC')->paginate();
 
-        return response()->json(['customers' => $customers], 200);
+        // return response()->json(['customers' => $customers], 200);
+        return new CustomerCollection($customers); // Devuelve un json como respuesta
     }
 
     /**
