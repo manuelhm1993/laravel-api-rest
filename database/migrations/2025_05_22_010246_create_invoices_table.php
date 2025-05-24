@@ -18,7 +18,7 @@ return new class extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->decimal('amount');
+            $table->integer('amount');
             $table->string('status');
             $table->dateTime('billed_dated');
             $table->dateTime('paid_dated')->nullable();

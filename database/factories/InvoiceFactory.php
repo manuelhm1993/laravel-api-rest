@@ -20,7 +20,11 @@ class InvoiceFactory extends Factory
         $status = $this->faker->randomElement(['B', 'P', 'V']);
 
         return [
-            'customer_id' => Customer::factory(),
+            'customer_id'  => Customer::factory(), // Creará un curstomer por cada nuevo invoice
+            'amount'       => $this->faker->numberBetween(100, 20000),
+            'status'       => $status,
+            'billed_dated' => $this->faker->dateTimeThisDecade(),
+            'paid_dated'   => ($status == 'P') ? $this->faker->dateTimeThisDecade() : null,
         ];
     }
 }
